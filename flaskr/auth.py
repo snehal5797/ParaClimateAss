@@ -1,11 +1,11 @@
 
 from flask import (
-    Blueprint, render_template, request,redirect, url_for
+    Blueprint, render_template, request, redirect, render_template, request, url_for
 )
 
 from flaskr.calculate_payout_new import payout
 
-bp = Blueprint('auth', __name__, url_prefix='/auth')
+bp = Blueprint('auth', __name__)
 import numpy as np
 
 
@@ -25,11 +25,11 @@ def register():
         values1=np.array(raw_payouts.values.tolist())       
         labels2=np.array(contingent_payouts.keys().tolist())
         values2=np.array(contingent_payouts.values.tolist())
-        data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    
 
-        return render_template('auth/bargraph.html',labels=labels1, values=values1,labels2=labels2, values2=values2,data=data)
-
-
-# @bp.route('/')
-# def index():
-#     return redirect(url_for('auth.register'))
+        return render_template('auth/bargraph.html',labels=labels1, values=values1,labels2=labels2, values2=values2,rows1=len(labels1),rows2=len(labels2))
+    
+    
+@bp.route('/')
+def index():
+    return redirect(url_for('auth.register'))

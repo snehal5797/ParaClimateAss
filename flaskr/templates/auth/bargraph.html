@@ -1,109 +1,129 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Bar Graph</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>   
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+  <head>
+    <title>Bar Graphs and Data Tables</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <div id="container">
-        <div class="chart-container">
-          <canvas id="bar-chart1"></canvas>
-        </div>
-        <div class="chart-container">
-          <canvas id="bar-chart2"></canvas>
-        </div>
 
-      </div>
-      <div >
-      <table id="table1">
-        <thead>
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-3”>
+
+            <table >
+                <tr>
+                  <th>{{ 'Year' }}</th>
+                  <th>{{ 'Raw Payout' }}</th>
+                </tr>
+                {% for i in range(0, rows1) %}
+                  <tr>
+                    <td>{{ labels[i] }}</td>
+                    <td>{{ values[i] }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+
+          </div>
+
+
+          <div class="col-md-7”>
+            <canvas id="bar-chart1"  ></canvas>
+          </div>
+        </div>
+    </div>
+
+
+<div>
+    <table >
+        <tr>
+          <th>{{ 'Year' }}</th>
+          <th>{{ 'Raw Quanto' }}</th>
+        </tr>
+        {% for i in range(0, rows2) %}
           <tr>
-            <th>Year</th>
-            <th>Raw Value</th>
+            <td>{{ labels2[i] }}</td>
+            <td>{{ values2[i] }}</td>
           </tr>
-        </thead>
-        <tbody id="table1body">
-        </tbody>
-    </table>
+        {% endfor %}
+      </table>
+      <canvas id="bar-chart2"  ></canvas>
+
 </div>
-     
-      
-    <script>
-        var ctx = document.getElementById('bar-chart1').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [{% for label in labels %}'{{ label }}',{% endfor %}],
-                datasets: [{
-                    label: 'Raw Payout',
-                    data: [{% for value in values %}{{ value }},{% endfor %}],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)'
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
+
+
 
     <script>
-        var ctx = document.getElementById('bar-chart2').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [{% for label in labels2 %}'{{ label }}',{% endfor %}],
-                datasets: [{
-                    label: 'Quanto Payout',
-                    data: [{% for value in values2 %}{{ value }},{% endfor %}],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)'
-                   
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+      // Bar Graph 1
+      var ctx = document.getElementById('bar-chart1').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: [{% for label in labels %}'{{ label }}',{% endfor %}],
+              datasets: [{
+                  label: 'Raw Payout',
+                  data: [{% for value in values %}{{ value }},{% endfor %}],
+                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                  borderColor: 'rgba(255, 99, 132, 1)'
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      responsive: true,
+                      maintainAspectRatio: false
+                  }
+              }
+          }
+      });
+
+      // Bar Graph 2
+      var ctx = document.getElementById('bar-chart2').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: [{% for label in labels2 %}'{{ label }}',{% endfor %}],
+              datasets: [{
+                  label: 'Quanto Payout',
+                  data: [{% for value in values2 %}{{ value }},{% endfor %}],
+                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                  borderColor: 'rgba(255, 99, 132, 1)'
+                 
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
     </script>
-
-<script>
-var list1 = labels;
-var list2 = values;
-
-// Get a reference to the table body
-var tableBody = document.getElementById("table1body");
-
-// Loop through the data and create a new row for each object
-for (var i = 0; i < list1.length; i++) {
-  var row = document.createElement("tr");
-  
-  var column1 = document.createElement("td");
-  column1.innerHTML = list1[i];
-  
-  var column2 = document.createElement("td");
-  column2.innerHTML = list2[i];
-  
-  row.appendChild(column1);
-  row.appendChild(column2);
-  tableBody.appendChild(row);
-}
-</script>
-
-    <button type="button" onclick="location.href='/auth/register'">Calculate new values</button>
-
-
-
-</body>
+    <button type="button" onclick="location.href='/register'">Calculate new values</button>
+  </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

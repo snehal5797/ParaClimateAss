@@ -29,9 +29,7 @@ class payout:
         raw_payout = self.merged_df[self.merged_df["Dates"].dt.quarter == 1]
         raw_payout["year"] = raw_payout["Dates"].dt.year
         # # Group the data by year and sum the payouts for each year
-        raw_payout = raw_payout.groupby("year").sum()["Final_price"]
-        # convert the DataFrame to an Excel file
-        
+        raw_payout = raw_payout.groupby("year").sum()["Final_price"]   
         return raw_payout
         
         

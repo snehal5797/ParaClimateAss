@@ -1,12 +1,12 @@
-from flask import (
-    Blueprint, redirect, url_for
-)
-from werkzeug.exceptions import abort
+# from flask import (
+#     Blueprint, flash, g, redirect, render_template, request, url_for
+# )
+# from werkzeug.exceptions import abort
 
-bp = Blueprint('blog', __name__)
+# bp = Blueprint('start', __name__)
 
-@bp.route('/')
-def index():
-    return redirect(url_for('auth.register'))
+# @bp.route('/')
+# def index():
+#     return redirect(url_for('auth.register'))
 
 
