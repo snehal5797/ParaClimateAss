@@ -47,3 +47,13 @@ div {
     padding: .5em;
     overflow: hidden;
 }
+#container {
+    width: 80%;
+    height: 600px;
+    display: flex;
+  }
+  
+.chart-container, .table-container {
+    width: 50%;
+    height: 50%;
+  }

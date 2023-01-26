@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %}
 
 {% block header %}
   <h1>{% block title %}New Post{% endblock %}</h1>
@@ -12,4 +12,4 @@
     <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
     <input type="submit" value="Save">
   </form>
-{% endblock %}
+{% endblock %} {% endcomment %}

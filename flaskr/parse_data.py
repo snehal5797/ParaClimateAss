@@ -10,9 +10,9 @@ def init_parse():
     Para_TMAX_df['date'] = pd.to_datetime(Para_TMAX_df['Date']).dt.date
     merged_df = pd.merge(SA_Price_df, Para_TMAX_df, on='date', how='outer')
     merged_df['Dates'] = pd.to_datetime(merged_df['Dates'], errors='coerce')
-    with open('FinalData.csv', 'w') as file:
-        merged_df.to_csv(file, index=False)
-    print("completeeee!!!")
+    # with open('FinalData.csv', 'w') as file:
+    #     merged_df.to_csv(file, index=False)
+    # print("completeeee!!!")
     
     return merged_df
         

@@ -24,7 +24,7 @@ class payout:
     
     def cal_raw_payout(self):
         self.merged_df["Final_price"] = self.MW_Notional * 1/12 * maximum(0, self.merged_df["Price"]-self.Power_Price_Strike)
-        # self.merged_df['Dates'] = pd.to_datetime(self.merged_df['Dates'], errors='coerce')
+        self.merged_df['Dates'] = pd.to_datetime(self.merged_df['Dates'], errors='coerce')
         raw_payout = self.merged_df[self.merged_df["Dates"].dt.quarter == 1]
         raw_payout["year"] = raw_payout["Dates"].dt.year
         # # Group the data by year and sum the payouts for each year
@@ -45,19 +45,15 @@ class payout:
     '''
     Function to validate the parameters received: Source, destination, place, percent, min/max type
     '''
-    def validate_params(source, destination, percent ,route_type):
-        if len(source)!=2:
-            return (True, "Source not correct.")
+    def validate_params(power_price_strike, mw_notional):
+        if power_price_strike!=0 :
+            return (True, "power_price_strike not correct.")
 
-        if len(destination)!=2:
-            return (True, "Destination not correct.")
-
-        if percent<100 or percent>200:
-            return (True, "Percent increase not between 100 and 200")
-        
-        if route_type not in ('min','max'):
-            return (True, "Route type not between min or max")
+        if mw_notional!=0:
+            return (True, "mw_notional not correct.")
 
         return (False, "No Error")
+    
+    ##add more checking
     
     
