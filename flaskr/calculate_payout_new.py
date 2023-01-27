@@ -1,7 +1,10 @@
 import pandas as pd
 from numpy import maximum
 
-
+import os
+from flask import (
+    Blueprint, render_template,flash, request, redirect, render_template, request, url_for,jsonify
+)
 
 class payout:
     
@@ -9,7 +12,26 @@ class payout:
         self.MW_Notional=mw_notional
         self.Power_Price_Strike=power_price_strike
         self.Temperature=41
-        self.merged_df =pd.read_csv('flaskr/FinalData.csv')
+        
+    
+        self.merged_df= pd.read_csv('flaskr/FinalData.csv')
+       
+        
+    #     try:
+    #     data = request.get_json()
+    #     filename = data['filename']
+    #     if not os.path.isfile(filename):
+    #         return jsonify(error=f"File Not Found: {filename}"),404
+    #     else:
+    #         # Perform file operation
+    #         with open(filename, "w") as f:
+    #             f.write(data["content"])
+    #         return jsonify(success=True)
+    # except Exception as e:
+    #     return jsonify(error=str(e)), 500
+        
+        
+            
         
 
     # def init_parse(self):
@@ -20,6 +42,18 @@ class payout:
     #     merged_df = pd.merge(SA_Price_df, Para_TMAX_df, on='date', how='outer')
     #     return merged_df
         
+        
+    def read_csv():
+        try:              
+            merged_df= pd.read_csv('flaskr/FinalData.csv')
+            return merged_df
+        except FileNotFoundError as e:
+            return json.dumps({"error": f"File Not Found: {e}"}),404
+        except pd.errors.ParserError as e:
+            return json.dumps({"error": f"Invalid data format: {e}"}),400
+        except Exception as e:
+            return json.dumps({"error": str(e)}), 500
+
         
     
     def cal_raw_payout(self):

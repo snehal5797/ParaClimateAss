@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
+  <h1>{% block title %}Calculate {% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
   <form method="post">
-    <label for="power_price_strike">power_price_strike</label>
+    <label for="power_price_strike">Power Price Strike</label>
     <input type="number" name="power_price_strike" id="power_price_strike" required>
-    <label for="mw_notional">mw_notional</label>
+    <label for="mw_notional">MW Notional</label>
     <input type="number" name="mw_notional" id="mw_notional" required>
-    <input type="submit" value="Register">
+    <input type="submit" value="Calculate">
   </form>
 {% endblock %} 
